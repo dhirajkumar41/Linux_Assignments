@@ -1,0 +1,63 @@
+-----------------------------------------
+
+Check if swap memory available 
+  -sudo swapon --show
+  
+-----------------------------------------
+
+Swap Memory Creation Process 
+
+
+Creating swap file - 1G swap
+  - sudo fallocate -l 1G /swapfile
+  - sudo dd if=/dev/zero of=/swapfile bs=1024 count=1048576
+  
+Block permissions 
+  - sudo chmod 600 /swapfile
+  
+Set swap area
+  - sudo mkswap /swapfile
+  
+Activate swap file
+  - sudo swapon /swapfile
+  
+Check swap 
+  - -sudo swapon --show
+  
+--------------------------------------------------------------------
+  
+Make the change permanent
+  - sudo nano /etc/fstab
+  - Paste following 
+  /swapfile swap swap defaults 0 0
+  
+Check swap after rebooting
+  - sudo swapon --show
+  - sudo free -h
+  
+--------------------------------------------------------------------
+
+Swappiness
+
+Swappiness is a Linux kernel property that defines how often the system will use the swap space.
+Greater value means system will use Swap memory agressively
+
+Check Swapiness value
+  - cat /proc/sys/vm/swappiness
+ 
+Set Swapiness value
+  - sudo sysctl vm.swappiness=10
+  
+Make this permanent by adding entry in 
+  - /etc/sysctl.conf
+  - append following value
+    vm.swappiness=10
+
+
+  
+
+  
+
+  
+
+
